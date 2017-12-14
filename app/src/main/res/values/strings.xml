@@ -2,8 +2,9 @@
     <string name="app_name">AndroidChatClient</string>
     <string name="connect_text">Connect to host:</string>
     <string name="connect_button_label">Connect</string>
-    <string name="connect_hint">Enter host to connect to</string>
+    <string name="connect_hint">Enter server IP</string>
     <string name="username_text">Username:</string>
     <string name="send_button_text">Send</string>
     <string name="chat_input_hint">Write chat message</string>
+    <string name="chat_name_hint">Enter your name</string>
 </resources>

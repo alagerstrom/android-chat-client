@@ -1,11 +1,9 @@
 package com.example.andreas.androidchatclient.controller;
 
-import android.util.Log;
 
 import com.example.andreas.androidchatclient.net.ChatClient;
 import com.example.andreas.androidchatclient.net.ConnectTask;
 import com.example.andreas.androidchatclient.util.Constants;
-import com.example.andreas.androidchatclient.view.MainActivity;
 
 /**
  * Created by andreas on 2017-12-12.
@@ -19,6 +17,10 @@ public class Controller {
     private Controller(){
     }
 
+    public boolean isConnected(){
+        return chatClient != null;
+    }
+
     public static Controller getInstance(){
         return instance;
     }
@@ -27,9 +29,7 @@ public class Controller {
         ConnectTask connectTask = new ConnectTask(username, host, Constants.PORT, new CompletionHandler<ChatClient>() {
             @Override
             public void onSuccess(ChatClient chatClient) {
-                Log.d(Constants.LOG_TAG, "Successfully connected");
                 Controller.this.chatClient = chatClient;
-                send("I am connected");
                 completionHandler.onSuccess(null);
             }
 
@@ -52,5 +52,12 @@ public class Controller {
 
     public void setChatClientDelegate(ChatClient.Delegate delegate) {
         chatClient.setDelegate(delegate);
+    }
+
+    public void disconnect() {
+        if (chatClient != null) {
+            chatClient.disconnect();
+        }
+        chatClient = null;
     }
 }

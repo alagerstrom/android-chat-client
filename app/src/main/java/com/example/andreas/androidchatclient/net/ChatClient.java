@@ -4,6 +4,8 @@ package com.example.andreas.androidchatclient.net;
  * Created by andreas on 2017-12-12.
  */
 
+import com.example.andreas.androidchatclient.dto.Message;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,9 +20,19 @@ public class ChatClient extends Thread {
     private final PrintWriter writer;
     private Delegate delegate;
     private String username;
+    private boolean connected = false;
+
+    public void disconnect() {
+        try {
+            connected = false;
+            socket.close();
+        } catch (IOException ignored) {
+
+        }
+    }
 
     public interface Delegate {
-        void incomingMessage(String username, String message);
+        void incomingMessage(Message message);
     }
 
     public ChatClient(String username, String host, int port) throws IOException {
@@ -29,6 +41,7 @@ public class ChatClient extends Thread {
         socket.connect(new InetSocketAddress(host, port));
         this.reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         this.writer = new PrintWriter(socket.getOutputStream(), true);
+        connected = true;
         start();
     }
 
@@ -45,15 +58,19 @@ public class ChatClient extends Thread {
 
     @Override
     public void run() {
-        boolean connected = true;
         while (connected) {
             try {
                 Message message = new Message(reader.readLine());
                 if (delegate != null)
-                    delegate.incomingMessage(message.getUsername(), message.getText());
+                    delegate.incomingMessage(message);
             } catch (IOException e) {
                 connected = false;
             }
+        }
+        try {
+            socket.close();
+        } catch (IOException ignored) {
+
         }
     }
 }

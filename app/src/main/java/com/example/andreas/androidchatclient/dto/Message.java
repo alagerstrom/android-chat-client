@@ -1,4 +1,4 @@
-package com.example.andreas.androidchatclient.net;
+package com.example.andreas.androidchatclient.dto;
 
 import com.example.andreas.androidchatclient.util.Constants;
 

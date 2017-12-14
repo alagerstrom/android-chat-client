@@ -4,36 +4,55 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_margin="5pt"
     tools:context="com.example.andreas.androidchatclient.view.MainActivity">
 
 
-    <TextView
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/chat_display_text"/>-->
+
+
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/chat_display_text"/>
+        android:id="@+id/recycler_view"
+        android:layout_alignParentTop="true"
+        android:layout_above="@id/send_message_edit_text"
+        >
+    </android.support.v7.widget.RecyclerView>
 
     <EditText
         android:id="@+id/send_message_edit_text"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:hint="@string/chat_input_hint"
-        android:inputType="text"
-        android:singleLine="true"
-        android:imeOptions="actionDone"
-        android:maxLines="1" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/button"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:hint="@string/chat_input_hint"
+        android:inputType="textCapSentences"
+        android:singleLine="true"
+        android:imeOptions="actionDone"
+        android:maxLines="1"
+        android:layout_toStartOf="@+id/button" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:onClick="sendMessageButtonClicked"
         android:text="@string/send_button_text"
-        android:id="@+id/button" />
+        android:layout_alignTop="@id/send_message_edit_text"
+        android:layout_alignBottom="@id/send_message_edit_text"
+        android:id="@+id/button"
+        android:paddingStart="10pt"
+        android:paddingLeft="10pt"
+        android:paddingEnd="10pt"
+        android:paddingRight="10pt"
+        android:layout_marginLeft="5pt"/>
 
 
 </RelativeLayout>
